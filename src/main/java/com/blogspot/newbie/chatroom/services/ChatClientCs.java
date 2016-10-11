@@ -50,23 +50,29 @@ public class ChatClientCs {
                         while ((line = reader.readLine()) != null){
                             notifyObservers(line);
                             
+                            String nama = line.substring(line.indexOf("<") + 1, line.indexOf(">"));
+                            if (!nama.equalsIgnoreCase("NwebieChat")){
+                            
+                            
+                            
                             
                             String[] helpYou = line.split(">");
                             if(helpYou.length != -1){
                             String h1 = helpYou[1].trim();
                             if(h1.equalsIgnoreCase("help")){
-                                sendInfo();
+                                sendInfo(nama);
                             }else if(cekNumber(h1) == true){
                                 int inputNumber = Integer.valueOf(h1);
                                 int maxNumber = getCountRecord();
                                 if(inputNumber <= maxNumber && inputNumber>=1)
-                                    senByOneInfo(h1);
+                                    senByOneInfo(h1, nama);
                                 else if(inputNumber == 0){
                                     send("Untuk Komunikasi Operator silakan hubungi nomor +6282340028400");
                                 }else{
                                     send("Pilihan yang anda masukan salah");
                                 }
                             
+                            }
                             }
                             }
                             
@@ -97,21 +103,21 @@ public class ChatClientCs {
         //metode acces database
   
   private final static ClientDao dao = HibernateUtil.getClientDao();
-    public void sendInfo(){
-        send("Pilih Informasi yang di perlukan : ");
+    public void sendInfo(String nama){
+        send("@"+nama+" Pilih Informasi yang di perlukan : ");
         java.util.List<ClientModel> list = dao.getClient();
         for(ClientModel l : list){
             
-            send(l.getKode()+" : "+l.getNama());
+            send("@"+nama+" "+l.getKode()+" : "+l.getNama());
         }
-        send("0 : Hubungi Operator");
+        send("@"+nama+" 0 : Hubungi Operator");
     }
     
     //send msg from db by selected number
-    public void senByOneInfo(String info){
+    public void senByOneInfo(String info, String nama){
         int i = Integer.valueOf(info);
         ClientModel m = dao.getKode(i);
-        send(m.getKeterangan());
+        send("@"+nama+" "+m.getKeterangan());
         
     }
     

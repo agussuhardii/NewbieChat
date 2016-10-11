@@ -3,8 +3,6 @@ package com.blogspot.newbie.chatroom.model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -23,6 +21,20 @@ public class ClientModel implements Serializable{
     
     @Column(name = "keterangan")
     String keterangan;
+    /*
+    @Column(name = "msg_read")
+    boolean msgRead;
+
+    public boolean isMsgRead() {
+        return msgRead;
+    }
+
+    public void setMsgRead(boolean msgRead) {
+        this.msgRead = msgRead;
+    }
+    
+    */
+    
 
     public int getKode() {
         return kode;

@@ -17,4 +17,12 @@ public interface ServerDao {
     public ServerModel getServer(String id_chat);
 
     public List<ServerModel> getDataChatServers();
+    
+    
+    public List<ServerModel> getDataByRead(boolean e);
+    
+    
+    public List<ServerModel> getDataByReadAndUser(String user, boolean e);
+    
+    
 }

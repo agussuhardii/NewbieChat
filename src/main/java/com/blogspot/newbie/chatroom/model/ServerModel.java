@@ -28,13 +28,46 @@ public class ServerModel implements Serializable{
     @Column(name = "messenger_chat", length = 150)
     private String msgChat; 
     
-    @Column(name = "time_chat")
+    @Column(name = "time_chat")//for postgresql, columnDefinition= "TIMESTAMP WITH TIME ZONE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeChat; 
 
     @Column(name = "msg_type")
     private String msgType;
+    
+    
+    @Column(name = "msg_read")
+    boolean msgRead;
 
+    public boolean isMsgRead() {
+        return msgRead;
+    }
+
+    public void setMsgRead(boolean msgRead) {
+        this.msgRead = msgRead;
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public String getMsgType() {
         return msgType;
     }

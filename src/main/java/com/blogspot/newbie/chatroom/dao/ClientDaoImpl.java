@@ -48,6 +48,54 @@ public class ClientDaoImpl implements ClientDao{
             session.close();
         }
     }
+
+    @Override
+    public void save(ClientModel m) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.beginTransaction();
+            session.save(m);
+            session.getTransaction();
+            transaction.commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void update(ClientModel m) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.beginTransaction();
+            session.update(m);
+            session.getTransaction();
+            transaction.commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void delete(ClientModel m) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.beginTransaction();
+            session.delete(m);
+            session.getTransaction();
+            transaction.commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+    }
 }
     
 

@@ -3,6 +3,7 @@ package com.blogspot.newbie.chatroom.services;
 import com.blogspot.newbie.chatroom.HibernateUtil;
 import com.blogspot.newbie.chatroom.dao.ClientDao;
 import com.blogspot.newbie.chatroom.model.ClientModel;
+import com.blogspot.newbie.chatroom.view.ClientCsDataView;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -187,6 +188,10 @@ public class ChatClientCs {
                     //System.out.println("Nama dikirim.............................");
                     if (str != null && str.trim().length() > 0)
                         chatAccess.send(str); // tidak di terima jika bukan private messenge
+                    
+                    if(str.equalsIgnoreCase("/show data"))
+                        new ClientCsDataView(null, true).setVisible(true);
+                    
                     inputTextField.selectAll();
                     inputTextField.requestFocus();
                     inputTextField.setText("");

@@ -22,16 +22,7 @@ public class ClientModel implements Serializable{
     @Column(name = "keterangan")
     String keterangan;
     /*
-    @Column(name = "msg_read")
-    boolean msgRead;
-
-    public boolean isMsgRead() {
-        return msgRead;
-    }
-
-    public void setMsgRead(boolean msgRead) {
-        this.msgRead = msgRead;
-    }
+    
     
     */
     

@@ -15,6 +15,7 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -62,7 +63,7 @@ public class clientThread extends Thread{
       os.println("NwebieChat > " + name + " to our chat room.\n"
               + "NwebieChat > To leave enter /quit in a new line.");
       //save to database
-            saveToDatabase(name, "Join to Server", "public");
+            saveToDatabase(name, "Join to Server", "public", true);
       synchronized (this) {
         for (int i = 0; i < maxClientsCount; i++) {
           if (threads[i] != null && threads[i] == this) {
@@ -101,10 +102,18 @@ public class clientThread extends Thread{
                     this.os.println("<" + name + "> " + words[1]);// ini telah di ganti
                     
                     //save to db private messange
-                                        saveToDatabase(name, words[1], "private messange to " + threads[i].clientName);
-
+                        saveToDatabase(name, words[1], "private messange to " + threads[i].clientName, true);
+                    
+                        
                     break;
+                  }else{
+                  //aku ubah
+                      String[] msgPrivate = line.split(" ");
+                      String msgPrivateName = msgPrivate[0];
+                      
+                      saveToDatabase(name, line, msgPrivateName, false);
                   }
+                  
                 }
               }
             }
@@ -117,7 +126,7 @@ public class clientThread extends Thread{
                 threads[i].os.println("<" + name + "> " + line);
                 
                 //save to db
-                                saveToDatabase(name, line, "public");
+                                saveToDatabase(name, line, "public", true);
               }
             }
           }
@@ -134,7 +143,7 @@ public class clientThread extends Thread{
       }
       os.println("NwebieChat > *** Bye " + name + " ***");
       //save if client close
-            saveToDatabase(name, "Close Connection", "Public");
+            saveToDatabase(name, "Close Connection", "Public", true);
 
       /*
        * Clean up. Set the current thread variable to null so that a new client
@@ -187,7 +196,7 @@ public class clientThread extends Thread{
   
   private final static ServerDao dao = HibernateUtil.getServerDao();
     
-    private static void saveToDatabase(String user, String msg, String msgType){
+    private static void saveToDatabase(String user, String msg, String msgType, boolean readMsg){
         //setting unix id from time
         SimpleDateFormat f = new SimpleDateFormat("yymm-dd-HHmmss");
         Date waktu = new Date();
@@ -200,6 +209,20 @@ public class clientThread extends Thread{
             data.setMsgChat(msg);
             data.setTimeChat(new Date());
             data.setMsgType(msgType);
+            data.setMsgRead(readMsg);
         dao.save(data);
+    }
+    
+    
+    
+    public void sendPanddingMsg(String msgType, boolean e){
+        System.out.println("param 1 :"+msgType);
+        System.out.println("param 2 :"+e);
+        
+        List<ServerModel> list = dao.getDataByReadAndUser(msgType, e);
+        for(ServerModel m: list){
+            System.out.println("ini data yang belum di:       "+m.getMsgType());
+            
+        }
     }
 }

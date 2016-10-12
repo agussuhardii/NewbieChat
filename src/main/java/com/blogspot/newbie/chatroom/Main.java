@@ -3,6 +3,7 @@ package com.blogspot.newbie.chatroom;
 import com.blogspot.newbie.chatroom.services.ChatClient;
 import com.blogspot.newbie.chatroom.services.ChatClientCs;
 import com.blogspot.newbie.chatroom.services.MultiThreadChatServerSync;
+import com.blogspot.newbie.chatroom.view.LogServerView;
 import javax.swing.*;
 
 //Class to precise who is connected : Client or Server
@@ -11,7 +12,7 @@ public class Main {
 	
 	public static void main(String [] args){
 		
-		Object[] selectioValues = { "Server","Client", "Client CS"};
+		Object[] selectioValues = { "Server","Client", "Client CS", "Log Server"};
 		String initialSection = "Server";
 		
 		Object selection = JOptionPane.showInputDialog(null, "Login as : ", "MyChatApp", JOptionPane.QUESTION_MESSAGE, null, selectioValues, initialSection);
@@ -26,6 +27,8 @@ public class Main {
                         String IPServer = JOptionPane.showInputDialog("Enter the Server IP Addres");
                         String[] arguments = new String[] {IPServer};
 			new ChatClientCs().main(arguments);
+                }else if(selection.equals("Log Server")){
+                    new LogServerView().setVisible(true);
                 }
 		
 	}

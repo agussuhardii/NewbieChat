@@ -9,12 +9,16 @@ import java.net.Socket;
 import java.net.ServerSocket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author mohammed
  */
-
+/**
+ *
+ * @author agus suhardi<agus.suhardii@gmail.com>
+ */
 // the Server class
 public class MultiThreadChatServerSync {
 
@@ -35,6 +39,7 @@ public class MultiThreadChatServerSync {
         if (args.length < 1) {
             System.out.println("Usage: java MultiThreadChatServerSync <portNumber>\n"
                     + "Now using port number=" + portNumber);
+
         } else {
             portNumber = Integer.valueOf(args[0]).intValue();
         }
@@ -45,8 +50,10 @@ public class MultiThreadChatServerSync {
          */
         try {
             serverSocket = new ServerSocket(portNumber);
+            JOptionPane.showMessageDialog(null, "Server Running Port :" + portNumber);
             saveToDatabase("server", "Start Port :" + portNumber, "Public");
         } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Port :" + portNumber + " has been used\n" + "Error  : " + e.getMessage());
             System.out.println(e);
         }
 

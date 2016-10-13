@@ -3,6 +3,7 @@ package com.blogspot.newbie.chatroom.services;
 import com.blogspot.newbie.chatroom.HibernateUtil;
 import com.blogspot.newbie.chatroom.dao.ClientDao;
 import com.blogspot.newbie.chatroom.model.ClientModel;
+import com.blogspot.newbie.chatroom.view.AboutView;
 import com.blogspot.newbie.chatroom.view.ClientCsDataView;
 import javax.swing.*;
 import java.awt.*;
@@ -15,19 +16,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import org.apache.derby.iapi.util.StringUtil;
+//import org.apache.derby.iapi.util.StringUtil;
 
-
+/**
+ *
+ * @author agus suhardi<agus.suhardii@gmail.com>
+ */
 // Class to manage Client chat Box.
 public class ChatClientCs {
-    
-    
 
-    /** Chat client access */
+    /**
+     * Chat client access
+     */
     static class ChatAccess extends Observable {
+
         private Socket socket;
         private OutputStream outputStream;
 
@@ -37,7 +41,9 @@ public class ChatClientCs {
             super.notifyObservers(arg);
         }
 
-        /** Create socket, and receiving thread */
+        /**
+         * Create socket, and receiving thread
+         */
         public void InitSocket(String server, int port) throws IOException {
             socket = new Socket(server, port);
             outputStream = socket.getOutputStream();
@@ -48,36 +54,35 @@ public class ChatClientCs {
                     try {
                         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                         String line;
-                        while ((line = reader.readLine()) != null){
+                        while ((line = reader.readLine()) != null) {
                             notifyObservers(line);
-                            
+
                             String nama = line.substring(line.indexOf("<") + 1, line.indexOf(">"));
-                            if (!nama.equalsIgnoreCase("NwebieChat")){
-                            
-                            
-                            
-                            
-                            String[] helpYou = line.split(">");
-                            if(helpYou.length != -1){
-                            String h1 = helpYou[1].trim();
-                            if(h1.equalsIgnoreCase("help")){
-                                sendInfo(nama);
-                            }else if(cekNumber(h1) == true){
-                                int inputNumber = Integer.valueOf(h1);
-                                int maxNumber = getCountRecord();
-                                if(inputNumber <= maxNumber && inputNumber>=1)
-                                    senByOneInfo(h1, nama);
-                                else if(inputNumber == 0){
-                                    send("Untuk Komunikasi Operator silakan hubungi nomor +6282340028400");
-                                }else{
-                                    send("Pilihan yang anda masukan salah");
+                            if (!nama.equalsIgnoreCase("NwebieChat")) {
+
+                                String[] helpYou = line.split(">");
+                                if (helpYou.length != -1) {
+                                    String h1 = helpYou[1].trim();
+                                    if (h1.equalsIgnoreCase("help")) {
+                                        sendInfo(nama);
+                                    } else if (cekNumber(h1) == true) {
+                                        int inputNumber = Integer.valueOf(h1);
+                                        int maxNumber = getCountRecord();
+                                        if (inputNumber <= maxNumber && inputNumber >= 1) {
+                                            senByOneInfo(h1, nama);
+                                        } else if (inputNumber == 0) {
+                                            send("@" + nama + " Mohon menunggu, sedang di hubungkan dengan CS kami");
+                                            JOptionPane.showMessageDialog(null, "CLient sedang meminta bantuan anda");
+                                        } else {
+                                            send("@" + nama + " Pilihan yang anda masukan salah");
+                                        }
+
+                                    } else if (h1.equalsIgnoreCase("/about")) {
+                                        new AboutView(null, true).setVisible(true);
+                                    }
                                 }
-                            
                             }
-                            }
-                            }
-                            
-                            
+
                         }
                     } catch (IOException ex) {
                         notifyObservers(ex);
@@ -89,7 +94,9 @@ public class ChatClientCs {
 
         private static final String CRLF = "\r\n"; // newline
 
-        /** Send a line of text */
+        /**
+         * Send a line of text
+         */
         public void send(String text) {
             try {
                 outputStream.write((text + CRLF).getBytes());
@@ -98,51 +105,47 @@ public class ChatClientCs {
                 notifyObservers(ex);
             }
         }
-        
-        
-        
+
         //metode acces database
-  
-  private final static ClientDao dao = HibernateUtil.getClientDao();
-    public void sendInfo(String nama){
-        send("@"+nama+" Pilih Informasi yang di perlukan : ");
-        java.util.List<ClientModel> list = dao.getClient();
-        for(ClientModel l : list){
-            
-            send("@"+nama+" "+l.getKode()+" : "+l.getNama());
-        }
-        send("@"+nama+" 0 : Hubungi Operator");
-    }
-    
-    //send msg from db by selected number
-    public void senByOneInfo(String info, String nama){
-        int i = Integer.valueOf(info);
-        ClientModel m = dao.getKode(i);
-        send("@"+nama+" "+m.getKeterangan());
-        
-    }
-    
-    //cek inputan number
-    public boolean cekNumber(String i){
-        try{
-            Integer.valueOf(i);
-        }catch(NumberFormatException e){
-            return false;
-        }
-        return true;
-    }
-    
-    //get Count dbRecord
-    public int getCountRecord(){
-        java.util.List<ClientModel> list = dao.getClient();
-        return list.size();
-    }
+        private final static ClientDao dao = HibernateUtil.getClientDao();
 
-    
-    
-        
+        public void sendInfo(String nama) {
+            send("@" + nama + " Pilih Informasi yang di perlukan : ");
+            java.util.List<ClientModel> list = dao.getClient();
+            for (ClientModel l : list) {
 
-        /** Close the socket */
+                send("@" + nama + " " + l.getKode() + " : " + l.getNama());
+            }
+            send("@" + nama + " 0 : Hubungi Operator");
+        }
+
+        //send msg from db by selected number
+        public void senByOneInfo(String info, String nama) {
+            int i = Integer.valueOf(info);
+            ClientModel m = dao.getKode(i);
+            send("@" + nama + " " + m.getKeterangan());
+
+        }
+
+        //cek inputan number
+        public boolean cekNumber(String i) {
+            try {
+                Integer.valueOf(i);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+            return true;
+        }
+
+        //get Count dbRecord
+        public int getCountRecord() {
+            java.util.List<ClientModel> list = dao.getClient();
+            return list.size();
+        }
+
+        /**
+         * Close the socket
+         */
         public void close() {
             try {
                 socket.close();
@@ -152,7 +155,9 @@ public class ChatClientCs {
         }
     }
 
-    /** Chat client UI */
+    /**
+     * Chat client UI
+     */
     static class ChatFrame extends JFrame implements Observer {
 
         private JTextArea textArea;
@@ -166,7 +171,9 @@ public class ChatClientCs {
             buildGUI();
         }
 
-        /** Builds the user interface */
+        /**
+         * Builds the user interface
+         */
         private void buildGUI() {
             textArea = new JTextArea(20, 50);
             textArea.setEditable(false);
@@ -184,14 +191,15 @@ public class ChatClientCs {
             ActionListener sendListener = new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     String str = inputTextField.getText();
-                    
+
                     //System.out.println("Nama dikirim.............................");
-                    if (str != null && str.trim().length() > 0)
+                    if (str != null && str.trim().length() > 0) {
                         chatAccess.send(str); // tidak di terima jika bukan private messenge
-                    
-                    if(str.equalsIgnoreCase("/show data"))
+                    }
+                    if (str.equalsIgnoreCase("/show")) {
                         new ClientCsDataView(null, true).setVisible(true);
-                    
+                    }
+
                     inputTextField.selectAll();
                     inputTextField.requestFocus();
                     inputTextField.setText("");
@@ -208,7 +216,9 @@ public class ChatClientCs {
             });
         }
 
-        /** Updates the UI depending on the Object argument */
+        /**
+         * Updates the UI depending on the Object argument
+         */
         public void update(Observable o, Object arg) {
             final Object finalArg = arg;
             SwingUtilities.invokeLater(new Runnable() {
@@ -222,7 +232,7 @@ public class ChatClientCs {
 
     public static void main(String[] args) {
         String server = args[0];
-        int port =4444;
+        int port = 4444;
         ChatAccess access = new ChatAccess();
 
         JFrame frame = new ChatFrame(access);
@@ -234,22 +244,11 @@ public class ChatClientCs {
         frame.setVisible(true);
 
         try {
-            access.InitSocket(server,port);
+            access.InitSocket(server, port);
         } catch (IOException ex) {
             System.out.println("Cannot connect to " + server + ":" + port);
             ex.printStackTrace();
             System.exit(0);
         }
     }
-    
-    
-    
-    
-    
-    
-    
-     
 }
-
-
-  

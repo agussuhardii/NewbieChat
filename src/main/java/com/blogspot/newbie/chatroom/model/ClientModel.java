@@ -6,26 +6,29 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author agus suhardi<agus.suhardii@gmail.com>
+ */
 @Entity
 @Table(name = "client")
-public class ClientModel implements Serializable{
-    
-    
+public class ClientModel implements Serializable {
+
     @Id
     //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "kode")
     int kode;
-    
+
     @Column(name = "nama")
     String nama;
-    
+
     @Column(name = "keterangan")
     String keterangan;
+
     /*
     
     
-    */
-    
+     */
 
     public int getKode() {
         return kode;
@@ -50,9 +53,5 @@ public class ClientModel implements Serializable{
     public void setNama(String nama) {
         this.nama = nama;
     }
-    
-    
-    
-    
-    
+
 }

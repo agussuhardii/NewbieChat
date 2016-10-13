@@ -1,0 +1,37 @@
+Documentasi Program NewbieChat
+Menu Program
+1. Server => Untuk menjalankan server pada port yang telah di tentukan
+2. Client => Berbentuk Gui untuk berkomunikasi antara Client
+3. Client CS => Client yang bertikdak sebagai pemberi informasi kepada client lainnya
+4. Log Server => Melihat informasi log chating Clinet
+5. Android Client => Untuk Chat Client menggunakan Smartphone Android
+
+Perintah dasar Pada Aplikasi NewbieChat
+1. Help => informasi yang di load dari database
+2. Nomor => Informasi yang dipilih di load dari database
+3. @nama_client => Private Chat
+4. /quit => untuk keluar dari chating
+5. /show => melihat/mengubah database Client
+6. /cek => untuk cek User Online
+6. /about =>informasi Software
+
+
+Database
+1. Server Menggunakan Postgresql
+2. Client menggunakan Mysql
+
+Pemrograman Jaringan
+
+Dosen Pengampuh :
+Joko Triyono, S.Kom M.Cs
+
+Agus Suhardi (151.05.2043)
+Renggana Surya Ramadhan (142.05.3003)
+Mahir Musthofani B (131.05.1012)
+Dista Putra W. (131.05.1067)
+Iswanto (131.05.1030)
+
+
+
+bug:
+Jika tidak terjadi sesuatu pada saat mengirim pesan, maka client tidak meresponse

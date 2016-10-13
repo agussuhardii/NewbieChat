@@ -6,16 +6,18 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public class ClientDaoImpl implements ClientDao{
+/**
+ *
+ * @author agus suhardi<agus.suhardii@gmail.com>
+ */
+public class ClientDaoImpl implements ClientDao {
 
     private final SessionFactory sessionFactory;
 
     public ClientDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-    
-    
-    
+
     @Override
     public ClientModel getKode(int kode) {
         Session session = sessionFactory.openSession();
@@ -97,5 +99,3 @@ public class ClientDaoImpl implements ClientDao{
         }
     }
 }
-    
-

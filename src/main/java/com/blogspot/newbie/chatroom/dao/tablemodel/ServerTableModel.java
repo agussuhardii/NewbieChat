@@ -12,9 +12,10 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author agus
+ * @author agus suhardi<agus.suhardii@gmail.com>
  */
-public class ServerTableModel extends AbstractTableModel{
+public class ServerTableModel extends AbstractTableModel {
+
     private List<ServerModel> list = new ArrayList<>();
     final private String kelasHeader[] = {"User", "Messenger", "Type", "Time"};//(id dan kelas) berdasarkan fild yang ada di database. beleh di rubah tetapih jumlah harus sesuai dengan yang ada di database
 
@@ -35,13 +36,18 @@ public class ServerTableModel extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         ServerModel model = list.get(rowIndex);
-        
-        switch(columnIndex){//jumlah dan fild berdasarkan yang ada di database
-            case 0 : return model.getUserChat();
-            case 1 : return model.getMsgChat();
-            case 2 : return model.getMsgType();
-            case 3 : return model.getTimeChat();
-            default:return null;
+
+        switch (columnIndex) {//jumlah dan fild berdasarkan yang ada di database
+            case 0:
+                return model.getUserChat();
+            case 1:
+                return model.getMsgChat();
+            case 2:
+                return model.getMsgType();
+            case 3:
+                return model.getTimeChat();
+            default:
+                return null;
         }
     }
 

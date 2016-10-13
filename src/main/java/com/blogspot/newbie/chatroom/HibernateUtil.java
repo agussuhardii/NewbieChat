@@ -13,20 +13,19 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 /**
- * Hibernate Utility class with a convenient method to get Session Factory
- * object.
  *
- * @author agus
+ * @author agus suhardi<agus.suhardii@gmail.com>
  */
 public class HibernateUtil {
-private static final SessionFactory SESSION_FACTORY;
+
+    private static final SessionFactory SESSION_FACTORY;
     private static final ServerDao SERVER_DAO;
     private static final ClientDao CLIENT_DAO;
 
     static {
         try {
             SESSION_FACTORY = new Configuration().configure()
-            .buildSessionFactory();
+                    .buildSessionFactory();
             SERVER_DAO = new ServerDaoImpl(SESSION_FACTORY);
             CLIENT_DAO = new ClientDaoImpl(SESSION_FACTORY);
         } catch (Throwable ex) {
@@ -42,6 +41,7 @@ private static final SessionFactory SESSION_FACTORY;
     public static ServerDao getServerDao() {
         return SERVER_DAO;
     }
+
     public static ClientDao getClientDao() {
         return CLIENT_DAO;
     }

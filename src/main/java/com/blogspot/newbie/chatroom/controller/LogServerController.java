@@ -12,10 +12,9 @@ import com.blogspot.newbie.chatroom.model.ServerModel;
 import com.blogspot.newbie.chatroom.view.LogServerView;
 import java.util.List;
 
-
 /**
  *
- * @author agus
+ * @author agus suhardi<agus.suhardii@gmail.com>
  */
 public final class LogServerController {
     LogServerView view;

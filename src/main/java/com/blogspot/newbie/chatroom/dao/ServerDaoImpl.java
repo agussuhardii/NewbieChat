@@ -9,17 +9,16 @@ import org.hibernate.Transaction;
 
 /**
  *
- * @author agus
+ * @author agus suhardi<agus.suhardii@gmail.com>
  */
 public class ServerDaoImpl implements ServerDao {
 
     private final SessionFactory sessionFactory;
+
     public ServerDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        
-    }
 
-    
+    }
 
     @Override
     public void save(ServerModel dataServer) {
@@ -102,7 +101,7 @@ public class ServerDaoImpl implements ServerDao {
             session.close();
         }
     }
-
+    /*
     @Override
     public List<ServerModel> getDataByRead(boolean i) {
         Session session = sessionFactory.openSession();
@@ -141,5 +140,6 @@ public class ServerDaoImpl implements ServerDao {
         } finally {
             session.close();
         }}
+     */
 
 }

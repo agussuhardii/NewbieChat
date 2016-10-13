@@ -5,10 +5,13 @@ import com.blogspot.newbie.chatroom.dao.ClientDao;
 import com.blogspot.newbie.chatroom.dao.tablemodel.ClientTableModel;
 import com.blogspot.newbie.chatroom.model.ClientModel;
 import com.blogspot.newbie.chatroom.view.ClientCsDataView;
-import com.sun.xml.internal.txw2.TXW;
 import java.util.List;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author agus suhardi<agus.suhardii@gmail.com>
+ */
 public class ClientCsDataController {
 
     ClientCsDataView view;

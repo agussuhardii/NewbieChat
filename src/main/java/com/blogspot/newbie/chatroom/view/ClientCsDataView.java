@@ -13,10 +13,12 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author agus
+ * @author agus suhardi<agus.suhardii@gmail.com>
  */
 public class ClientCsDataView extends javax.swing.JDialog {
+
     ClientCsDataController controller;
+
     /**
      * Creates new form ClientCsDataView
      */
@@ -25,6 +27,7 @@ public class ClientCsDataView extends javax.swing.JDialog {
         initComponents();
         controller = new ClientCsDataController(this);
         controller.showData();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -299,7 +302,5 @@ public class ClientCsDataView extends javax.swing.JDialog {
     public void setTxtKode(JTextField txtKode) {
         this.txtKode = txtKode;
     }
-
-    
 
 }

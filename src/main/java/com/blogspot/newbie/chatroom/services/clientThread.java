@@ -102,7 +102,7 @@ public class clientThread extends Thread {
                      * Echo this message to let the client know the private
                      * message was sent.
                                          */
-                                        //this.os.println("<" + name + "> " + words[1]);// ini telah di ganti
+                                        this.os.println("<" + name + "> " + words[1]);// ini telah di ganti
                                         //save to db private messange
                                         saveToDatabase(name, words[1], "private messange to " + threads[i].clientName);
                                     }

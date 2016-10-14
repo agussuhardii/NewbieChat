@@ -169,7 +169,7 @@ public class ChatClient {
         ChatAccess access = new ChatAccess();
 
         JFrame frame = new ChatFrame(access);
-        frame.setTitle("MyChatApp - connected to " + server + ":" + port);
+        frame.setTitle("NewbieChat - connected to " + server + ":" + port);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);

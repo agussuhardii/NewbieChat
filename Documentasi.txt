@@ -32,6 +32,15 @@ Dista Putra W. (131.05.1067)
 Iswanto (131.05.1030)
 
 
+Perbaikan
+* reload form view Server on fiew second
+
+
+
+
+
+
+
 
 bug:
 Jika tidak terjadi sesuatu pada saat mengirim pesan, maka client tidak meresponse

@@ -6,13 +6,16 @@
 package com.blogspot.newbie.chatroom.view;
 
 import com.blogspot.newbie.chatroom.controller.LogServerController;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JTable;
+import javax.swing.Timer;
 
 /**
  *
  * @author agus suhardi<agus.suhardii@gmail.com>
  */
-public class LogServerView extends javax.swing.JFrame {
+public final class LogServerView extends javax.swing.JFrame {
 
     LogServerController controller;
 
@@ -23,6 +26,7 @@ public class LogServerView extends javax.swing.JFrame {
         initComponents();
         controller = new LogServerController(this);
         this.setLocationRelativeTo(null);
+        otomatisReload();
     }
 
     /**
@@ -148,4 +152,34 @@ public class LogServerView extends javax.swing.JFrame {
         this.tblLog = tblLog;
     }
 
+    
+    
+    void otomatisReload(){
+    Timer t = new Timer(0, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            controller.showData();
+        }
+    });
+    t.setDelay(3000);
+    t.start();
+    }
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
